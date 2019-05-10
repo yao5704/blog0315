@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% for article in article_list %}
+ <article class="post post-{{ article.pk }}">
+     <header class="entry-header">
+         <h1 class="entry-title">
+             <a href="{% url 'blog0315:article_detail' article.id %}" rel="external nofollow" >{{ article.title }}</a>
+         </h1>
+
+     </header>
+ </article>
+{% empty %}
+ <div class="no-post">暂时还没有发布的文章！</div>
+    <a href="{% url 'blog0315:new_article' %}"><h1 style="color:red;">点击即可-->立即创作</h1> </a>
+ {% endfor %}
+
+</body>
+</html>

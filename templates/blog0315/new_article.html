@@ -1,0 +1,38 @@
+{% extends 'blog0315/base.html' %}
+{% block header_extends %}
+    <script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+{% endblock header_extends %}
+{% block main %}
+
+    <p>Add a new article:</p>
+    <form id="article_form" action="{% url 'blog0315:new_article' %}" method="POST" style="overflow:hidden">
+        {% csrf_token %}
+        {{ article_form.as_ul }}
+{#        <label>文章标题#}
+{#        <input type="text" name="title" >#}
+{#    </label>#}
+{#    <p></p>#}
+{#    <label>文章内容#}
+{#        <input type="text" name="body" >#}
+{#    </label>#}
+{#        <p></p>#}
+{#    <label>标签#}
+{#        <select name="tags">#}
+{#            <option value ="1">1</option>#}
+{#            <option value ="2">2</option>#}
+{#        </select>#}
+{#    </label>#}
+{#        <p></p>#}
+{#    <label>分类#}
+{#        <select  name="category">#}
+{#            <option value ="1">1</option>#}
+{#            <option value ="2">2</option>#}
+{#        </select>#}
+{#    </label>#}
+
+            <!--显示表单只需包含模板变量，就可让Django自动创建显示表单所需的全部字段。
+                                修饰符as_p让Django以段落格式渲染所有表单元素-->
+     <input type="submit" value="添加" class="btn btn-primary pull-right">        <!--定义创建提交的按钮-->
+    </form>
+{% endblock main %}

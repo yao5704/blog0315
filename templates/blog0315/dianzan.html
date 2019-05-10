@@ -1,0 +1,13 @@
+
+
+    <div class="like" onclick="likeChange(this, '{% get_content_type article %}', {{ article.pk }})">
+                    <span class="glyphicon glyphicon-thumbs-up {% get_like_status article %}"></span>
+                    <span class="liked-num">{% get_like_count article %}</span>
+                    <span>喜欢</span>
+    </div>
+var i=1
+$(".like").shao( function(){
+    var a=i++;
+    return a;
+    } )
+    $ajax

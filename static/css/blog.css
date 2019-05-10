@@ -1,0 +1,173 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+ul,p{
+    margin: 0;
+}
+img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.top{
+    background-color: #3d6b96;
+    padding: 15px;
+   align-items: center;
+}
+.top p{
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+    color: aquamarine;
+
+
+}
+a:link {text-decoration:none;}    /* 未被访问的链接 */
+a:visited {text-decoration:none;} /* 已被访问的链接 */
+a:hover {text-decoration:none;}   /* 鼠标指针移动到链接上 */
+a:active {text-decoration:underline;}
+
+.choiseItem{
+     display: flex;
+     flex-direction: row;
+      margin-left: 500px;
+      margin-bottom: -5px;
+     
+}
+.choiseItem ul{
+float: right;
+width: 100%;
+padding: 0;
+margin-top: 0;
+list-style-type:none;
+
+}
+.choiseItem a
+{
+    justify-content: center;
+float: right;
+width:7em;
+text-decoration:none;
+color:white;
+background-color:rgb(51, 114, 185);
+padding:0.2em 0.6em;
+border-right:5px solid rgb(123, 188, 197);
+
+border-radius: 10%;
+}
+
+a:hover {background-color:#664f49}
+.choiseItem li {
+    display:inline;
+}
+.mid{
+   height: 1600px;
+padding: 2px;
+display: flex;
+flex-direction: row;
+background-image: url(image/BGmid.jpg);
+background-color: rgba(0,0,0,0.5);
+background-size: 100%;
+
+}
+.mid .blodUser{
+    width: 22%;
+  display: flex;
+  flex-direction: column;
+  border-right: 5px solid  #33161675;
+}
+.userHead{
+    width: 25%;
+    margin-left: 20px;
+    height: 90px;
+    margin-top: 20px;
+}
+.userHead img{
+    border-radius: 50%;
+
+}
+.Name{
+    margin-left: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: bisque; 
+    margin-top: -16px;
+}
+.mid .blodUser .imgName{
+    display: flex;
+    flex-direction: column;
+    margin-left: 63px;
+}
+
+.mid .blodUser .userHead img{
+    border-radius: 50%;
+}
+.mid .blodUser .userMieda{
+    margin-left: -30px;
+}
+.mid .blodUser .userMieda li{
+  display: inline;
+  border-style: solid;
+  border-radius: 8%;
+  border-color: #4d8eac;
+      background: #3d6b96;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-size: 16px;
+   font-weight: bold;
+}
+.userMieda a{
+    color: burlywood;
+}
+
+.userInf{
+    font-size: 8px;
+    margin-left: 12px;
+    font-weight: 250;
+    color: #3d6b96;
+}
+.userMieda{
+    margin-top: 30px;
+   
+}
+.right{
+    width: 78%;
+    display: flex;
+    flex-direction: column;
+   
+}
+.right p{
+    color: azure;
+}
+.right b{
+    font-size: 30px;
+}
+.par1{
+    padding: 30px;
+    height: 200px;
+    border: 4px solid #70a8b9;
+}
+.cFrom1{
+    height: 20px;
+    margin-top: 88px;
+   
+}
+.cFrom1 p{
+    margin-left: 620px;
+}
+.par2{
+    padding: 30px;
+    height: 200px;
+    border: 4px solid #70a8b9;
+    margin-top: 40px;
+}
+.cFrom2{
+    height: 20px;
+    margin-top: 88px;
+   
+}
+.cFrom2 p{
+    margin-left: 620px;
+}

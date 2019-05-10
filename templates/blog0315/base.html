@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>呆 の 博客</title>
+
+    <!-- meta -->
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ico图标-->
+<link rel="icon" href="/static/ico/favicon.ico" type="image/x-icon"/>
+ <!-- css -->
+ <link rel="stylesheet" href="/static/css/bootstrap.min.css" rel="external nofollow" rel="external nofollow" >
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="external nofollow" rel="external nofollow" rel="external nofollow" >
+    <link rel="stylesheet" href="/static/css/pace.css" rel="external nofollow" rel="external nofollow" >
+ <link rel="stylesheet" href="/static/css/custom.css" rel="external nofollow" >
+{% block header_extends %}{% endblock %}
+
+</head>
+
+<body>
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="/"><b>Black</b> &amp; White</a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+
+        <!--       自己弄的登陆链接       -->
+            <p align="center">
+                        {% if user.is_authenticated %}
+                            Hello, {{ user.username }}.
+                            <a href="{% url 'users:logout' %}"  style="color:blue;"> log out</a>
+                        {% else %}
+                           <a href="{% url 'users:login' %}"> --> log in</a> -
+                            <a href="{% url 'users:register' %}">register</a>
+                        {% endif %}
+            </p>
+        <!--   #####################################################                                                      -->
+
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href="/" data-hover="首页">首页</a></li>
+                            <!--  <li class="cl-effect-11"><a href="/static/full-width.html" data-hover="博客">博客</a></li>   -->
+                            <li class="cl-effect-11"><a href="{% url 'blog0315:blogs' %}" data-hover="博客">博客</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog0315:about' %}" data-hover="关于">关于</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog0315:contact' %}" data-hover="联系">联系</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="搜索" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- col-md-8 -->
+        </div>
+    </header>
+</div>
+<div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
+<div class="copyrights">Modified by <a href="http://zmrenwu.com/">追梦人物的博客</a></div>
+
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+             {% block main %}
+             {% endblock main %}
+
+            </main>
+                <aside class="col-md-4">
+                 {% block toc %}
+                 {% endblock toc %}
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title">最新文章</h3>
+                    <ul>
+                        {% for article in article_list3 %}
+                            <li>
+                                <a href="{% url 'blog0315:article_detail' article.id %}" rel="external nofollow" >{{ article.title }}</a>
+                            </li>
+                        {% empty %}
+                            <div class="no-post">暂时还没有发布的文章！</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+                    <ul>
+                        {% for category in category_list %}
+                            <li>
+                                <a href="{% url 'blog0315:article_category' category.id %}" rel="external nofollow" >{{ category.name }}({{ category.get_category_count }})</a>
+                            </li>
+                        {% empty %}
+                            <div class="no-post">暂时还没有！</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">标签云</h3>
+                    <ul>
+                        {% for tag in tag_list %}
+                            <li>
+                                <a href="{% url 'blog0315:article_tag' tag.id %}" rel="external nofollow" >{{ tag.name }}</a>
+                            </li>
+                        {% empty %}
+                            <div class="no-post">暂时还没有！</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="rss">
+                    <a href="https://www.zmrenwu.com/" target="_blank"><span class="ion-social-rss-outline"></span> 更多内容</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">&copy 2018 - 姚小名瞎搞而来
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="{% url 'blog0315:blogs' %}">博客</a></li>
+            <li><a href="{% url 'blog0315:about' %}">关于</a></li>
+            <li><a href="{% url 'blog0315:contact' %}">联系</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+
+</body>
+<!-- js -->
+<script src="/static/js/script.js"></script>
+ <script src="/static/js/jquery-2.1.3.min.js"></script>
+ <script src="/static/js/bootstrap.min.js"></script>
+ <script src="/static/js/pace.min.js"></script>
+ <script src="/static/js/modernizr.custom.js"></script>
+{% block script_extends %}{% endblock %}
+</html>

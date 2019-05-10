@@ -1,0 +1,140 @@
+{% extends 'blog0315/base.html' %}
+{% load comment_tags %}
+{% block header_extends %}
+    <script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+{% endblock header_extends %}
+{% block main %}
+
+<article class="post post-{{ article.pk }}">
+        <header class="entry-header">
+         <h1 class="entry-title">
+             <a href="{% url 'blog0315:article_detail' article.id %}" rel="external nofollow" >{{ article.title }}</a>
+         </h1>
+         <div class="entry-meta">
+            <span class="post-category"><a href="{% url 'blog0315:article_category' article.category.id %}" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" >{{ article.category.name }}</a></span>
+            <span class="post-date"><a href="#" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" ><time class="entry-date"
+                    datetime="{{ article.created_time }}">{{ article.created_time }}</time></a></span>
+            <span class="post-author"><a href="{% url 'blog0315:selfblog' article.author %}" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" >{{ article.author_name }}</a></span>
+            <span class="comments-link"><a href="#" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" >{% get_comment_count article %} 评论</a></span>
+            <span class="views-count"><a href="#" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" rel="external nofollow" >{{ article.read_num }} 阅读</a></span>
+         </div>
+     </header>
+    <div class="entry-content clearfix">
+        {{ article.body|safe }}
+    </div>
+         <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="comment-area">
+                    <br>
+                    <br>
+                    <br>
+                <hr>
+                    <h3 class="comment-area-title">提交评论</h3>
+                    {% if user.is_authenticated %}
+                        <form id="comment_form" action="{% url 'comment:update_comment' %}" method="POST" style="overflow:hidden">
+                            <label>{{ user.username }}，欢迎评论~</label>
+
+                            {% csrf_token %}
+                            {% for field in comment_form %}
+                                {{ field }}
+                            {% endfor %}
+                            <span id="comment_error" class="text-danger pull-left"></span>
+
+                            <input type="submit" value="评论" class="btn btn-primary pull-right">
+                        </form>
+{#                        <form action="{% url 'comment:update_comment' %}" method="POST" style="overflow:hidden">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="form-group">#}
+{#                                <label for="comment_text">{{ user.username }}，欢迎评论~</label>#}
+{#                                <textarea id="comment_text" class="form-control" name="text" rows="4"></textarea>#}
+{#                            </div>#}
+{##}
+{#                            <input type="hidden" name="object_id" value="{{ article.pk }}">#}
+{#                            <input type="hidden" name="content_type" value="article">#}
+{#                            <input type="submit" value="评论" class="btn btn-primary" style="float:right">#}
+{#                        </form>#}
+                    {% else %}
+                        您尚未登录，登录之后方可评论~
+                        <a class="btn btn-primary" href="{% url 'users:login' %}?from={{ request.get_full_path }}">登录</a>
+                        <span> or </span>
+                        <a class="btn btn-danger" href="{% url 'users:register' %}?from={{ request.get_full_path }}">注册</a>
+                    {% endif %}
+                </div>
+                <div class="comment-area">
+                    <h3 class="comment-area-title">评论列表</h3>
+                    <div id="comment_list">
+                        {% for comment in comments %}
+                           <div>
+                                {{ comment.user.username }}
+                                ({{ comment.comment_time }})：
+                                {{ comment.text|safe }}
+                            </div>
+                        {% empty %}
+                            <span id="no_comment">暂无评论</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+</article>
+<br>
+    <!--上一篇下一篇-->
+    <div class="blog-more">
+                    <p> 上一篇：
+                        {% if next_article %}
+                            <a href="{% url 'blog0315:article_detail' next_article.pk %}"  style="color:deepskyblue;">{{ next_article.title }}</a>
+                        {% else %}
+                            没有了
+                        {% endif %}
+                    </p>
+                    <p>下一篇：
+                        {% if previous_article %}
+                            <a href="{% url 'blog0315:article_detail' previous_article.pk %}"  style="color:deepskyblue;">{{ previous_article.title }}</a>
+                        {% else %}
+                            没有了
+                        {% endif %}
+                    </p>
+                </div>
+
+{% endblock main %}
+{% block script_extends %}
+    <script type="text/javascript">
+        $("#comment_form").submit(function(){
+            // 判断是否为空
+            $("#comment_error").text('');
+            if(CKEDITOR.instances["id_text"].document.getBody().getText().trim()==''){
+                $("#comment_error").text('评论内容不能为空');
+                return false;
+            }
+            // 更新数据到textarea
+            CKEDITOR.instances['id_text'].updateElement();
+            // 异步提交
+            $.ajax({
+                url: "{% url 'comment:update_comment' %}",
+                type: 'POST',
+                data: $(this).serialize(),
+                cache: false,
+                success: function(data){
+                    console.log(data);
+                    if(data['status']=="SUCCESS"){
+                        // 插入数据
+                        var comment_html = '<div>' + data['username'] +
+                                           ' (' + data['comment_time'] + ')：' +
+                                           data['text'] + '</div>';
+                        $("#comment_list").prepend(comment_html);
+                        // 清空编辑框的内容
+                        CKEDITOR.instances['id_text'].setData('');
+                    }else{
+                        // 显示错误信息
+                        $("#comment_error").text(data['message']);
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+            return false;
+        });
+    </script>
+{% endblock %}
